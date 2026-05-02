@@ -1,0 +1,299 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #1e2430;
+  background: #f4f1ea;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.topbar,
+.workspace {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0 24px;
+}
+
+.kicker {
+  margin: 0 0 3px;
+  color: #646b77;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  line-height: 0.9;
+}
+
+.userbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userbar span,
+.panel-title,
+.actions button,
+.auth-panel button,
+.puzzle-list button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 315px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.side-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.metric,
+.panel-block,
+.auth-panel {
+  border: 1px solid rgba(30, 36, 48, 0.12);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 18px 55px rgba(31, 39, 53, 0.08);
+}
+
+.metric {
+  min-height: 76px;
+  padding: 14px;
+  border-radius: 8px;
+}
+
+.metric span {
+  display: block;
+  color: #646b77;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.metric strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.6rem;
+}
+
+.panel-block {
+  padding: 14px;
+  border-radius: 8px;
+}
+
+.panel-title {
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+.puzzle-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.puzzle-list button,
+.actions button,
+.auth-panel button,
+.icon-button {
+  border: 1px solid rgba(30, 36, 48, 0.16);
+  background: #fffaf0;
+  color: #1e2430;
+  border-radius: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+}
+
+.puzzle-list button.selected,
+.segmented button.active,
+.primary {
+  background: #1e2430;
+  color: #fffaf0;
+}
+
+.icon-button {
+  display: grid;
+  width: 42px;
+  padding: 0;
+  place-items: center;
+}
+
+.leaderboard {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 24px;
+}
+
+.leaderboard li {
+  padding-left: 4px;
+}
+
+.leaderboard span {
+  display: inline-block;
+  min-width: 95px;
+}
+
+.leaderboard strong {
+  color: #455062;
+  font-size: 0.92rem;
+}
+
+.game-area {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--size), 1fr);
+  width: min(72vh, 100%);
+  aspect-ratio: 1;
+  border: 3px solid #1e2430;
+  background: #1e2430;
+  gap: 2px;
+}
+
+.cell {
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  place-items: center;
+  border: 0;
+  color: #1e2430;
+}
+
+.cell:hover {
+  filter: brightness(1.06);
+}
+
+.cell.queen {
+  box-shadow: inset 0 0 0 4px rgba(30, 36, 48, 0.24);
+}
+
+.cell.blocked {
+  color: rgba(30, 36, 48, 0.58);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.actions button {
+  min-width: 126px;
+  justify-content: center;
+}
+
+.message {
+  margin: 0;
+  min-height: 24px;
+  color: #8b3227;
+  font-weight: 700;
+  text-align: center;
+}
+
+.auth-screen {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 20px;
+}
+
+.auth-panel {
+  display: grid;
+  width: min(430px, 100%);
+  gap: 14px;
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.auth-panel h1 {
+  margin-bottom: 8px;
+}
+
+.auth-panel label {
+  display: grid;
+  gap: 6px;
+  color: #455062;
+  font-weight: 800;
+}
+
+.auth-panel input {
+  min-height: 46px;
+  border: 1px solid rgba(30, 36, 48, 0.16);
+  border-radius: 8px;
+  padding: 0 12px;
+}
+
+.segmented {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.auth-panel .primary {
+  justify-content: center;
+  min-height: 48px;
+}
+
+@media (max-width: 840px) {
+  .app-shell {
+    padding: 16px;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .side-panel {
+    order: 2;
+  }
+
+  .board {
+    width: min(94vw, 620px);
+  }
+}

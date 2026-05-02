@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+# Git hook for Raspberry Pi deployment.
+# Install it as: /home/satanisz/repos/malinka.git/hooks/post-receive
+
+DEPLOY_BRANCH="${DEPLOY_BRANCH:-master}"
+APP_DIR="${APP_DIR:-/home/satanisz/projects/queens}"
+REPO_DIR="${REPO_DIR:-/home/satanisz/repos/malinka.git}"
+PM2_PROCESS="${PM2_PROCESS:-queens-backend}"
+
+deploy_ref=""
+while read -r _oldrev _newrev refname; do
+  if [[ "$refname" == "refs/heads/$DEPLOY_BRANCH" ]]; then
+    deploy_ref="$refname"
+  fi
+done
+
+if [[ -z "$deploy_ref" ]]; then
+  echo "No push to $DEPLOY_BRANCH, skipping deploy."
+  exit 0
+fi
+
+echo "Deploying $DEPLOY_BRANCH to $APP_DIR"
+mkdir -p "$APP_DIR"
+
+git --git-dir="$REPO_DIR" --work-tree="$APP_DIR" checkout -f "$DEPLOY_BRANCH"
+
+cd "$APP_DIR"
+
+if [[ -f "backend/requirements.txt" ]]; then
+  python3 -m venv .venv
+  # shellcheck disable=SC1091
+  source .venv/bin/activate
+  python -m pip install --upgrade pip
+  python -m pip install -r backend/requirements.txt
+fi
+
+if [[ -f "frontend/package.json" ]]; then
+  cd frontend
+  if [[ -f "package-lock.json" ]]; then
+    npm ci
+  else
+    npm install
+  fi
+  npm run build
+  cd ..
+fi
+
+if command -v pm2 >/dev/null 2>&1; then
+  if pm2 describe "$PM2_PROCESS" >/dev/null 2>&1; then
+    pm2 restart "$PM2_PROCESS" --update-env
+  else
+    pm2 start run.py --name "$PM2_PROCESS" --cwd "$APP_DIR/backend" --interpreter "$APP_DIR/.venv/bin/python"
+  fi
+  pm2 save
+else
+  echo "pm2 is not installed. Files were deployed, but backend was not restarted."
+fi
+
+echo "Deploy complete."
