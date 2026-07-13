@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Crown, LogOut, Plus, RotateCcw, Trophy, UserRound, X } from 'lucide-react';
+import { ArrowRight, Crown, Home, LogOut, Plus, RotateCcw, Swords, Trophy, UserRound, X } from 'lucide-react';
 import './styles.css';
 
 const API = import.meta.env.VITE_API_URL || '/api';
@@ -29,7 +29,7 @@ function formatTime(seconds) {
   return `${minutes}:${String(rest).padStart(2, '0')}`;
 }
 
-function App() {
+function QueensGame() {
   const [token, setToken] = useState(localStorage.getItem('queensToken'));
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('queensUser') || 'null'));
   const [puzzles, setPuzzles] = useState([]);
@@ -179,6 +179,7 @@ function App() {
           <h1>Queens</h1>
         </div>
         <div className="userbar">
+          <a className="back-link" href="/"><Home size={17} /> Gry</a>
           <span><UserRound size={18} /> {user.username}</span>
           <button className="icon-button" onClick={logout} title="Wyloguj"><LogOut size={19} /></button>
         </div>
@@ -281,6 +282,7 @@ function AuthScreen({ onAuth }) {
   return (
     <main className="auth-screen">
       <form className="auth-panel" onSubmit={submit}>
+        <a className="back-link auth-back-link" href="/"><Home size={17} /> Wszystkie gry</a>
         <p className="kicker">Malinka</p>
         <h1>Queens</h1>
         <div className="segmented">
@@ -302,6 +304,42 @@ function AuthScreen({ onAuth }) {
   );
 }
 
+function GamePicker() {
+  return (
+    <main className="game-picker">
+      <div className="game-picker-inner">
+        <header className="picker-hero">
+          <p className="kicker">Satanisz.pl</p>
+          <h1>Wybierz grę</h1>
+          <p>Trochę główkowania albo szybka walka — wybór należy do Ciebie.</p>
+        </header>
+
+        <section className="game-grid" aria-label="Dostępne gry">
+          <a className="game-card queens-card" href="/queens/">
+            <span className="card-icon"><Crown size={40} strokeWidth={1.8} /></span>
+            <span className="card-copy">
+              <small>Gra logiczna</small>
+              <strong>Queens</strong>
+              <span>Ustaw królowe, omijaj pola i pobij swój rekord.</span>
+            </span>
+            <span className="card-action">Graj <ArrowRight size={20} /></span>
+          </a>
+
+          <a className="game-card aikido-card" href="/aikido/">
+            <span className="card-icon"><Swords size={40} strokeWidth={1.8} /></span>
+            <span className="card-copy">
+              <small>Gra zręcznościowa</small>
+              <strong>Aikido</strong>
+              <span>Staś kontra zły Sensei — walcz także na telefonie.</span>
+            </span>
+            <span className="card-action">Graj <ArrowRight size={20} /></span>
+          </a>
+        </section>
+      </div>
+    </main>
+  );
+}
+
 function Metric({ label, value }) {
   return (
     <div className="metric">
@@ -311,4 +349,9 @@ function Metric({ label, value }) {
   );
 }
 
-createRoot(document.getElementById('root')).render(<App />);
+const path = window.location.pathname.replace(/\/+$/, '') || '/';
+if (path === '/aikido') {
+  window.location.replace('/aikido/index.html');
+} else {
+  createRoot(document.getElementById('root')).render(path === '/queens' ? <QueensGame /> : <GamePicker />);
+}

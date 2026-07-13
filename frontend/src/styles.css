@@ -12,6 +12,10 @@ body {
   margin: 0;
 }
 
+a {
+  color: inherit;
+}
+
 button,
 input {
   font: inherit;
@@ -64,10 +68,26 @@ h1 {
 .panel-title,
 .actions button,
 .auth-panel button,
-.puzzle-list button {
+.puzzle-list button,
+.back-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+}
+
+.back-link {
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid rgba(30, 36, 48, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 250, 240, 0.72);
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  background: #fffaf0;
 }
 
 .workspace {
@@ -280,6 +300,128 @@ h1 {
   min-height: 48px;
 }
 
+.auth-back-link {
+  justify-self: start;
+  margin-bottom: 4px;
+}
+
+.game-picker {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  overflow: hidden;
+  padding: 32px;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(242, 211, 94, 0.22), transparent 34rem),
+    radial-gradient(circle at 85% 80%, rgba(86, 40, 59, 0.19), transparent 38rem),
+    #f4f1ea;
+}
+
+.game-picker-inner {
+  width: min(980px, 100%);
+}
+
+.picker-hero {
+  max-width: 660px;
+  margin-bottom: 34px;
+}
+
+.picker-hero h1 {
+  font-size: clamp(3.2rem, 9vw, 6.6rem);
+  letter-spacing: -0.055em;
+}
+
+.picker-hero > p:last-child {
+  max-width: 570px;
+  margin: 18px 0 0;
+  color: #555e6d;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.55;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.game-card {
+  position: relative;
+  display: grid;
+  min-height: 310px;
+  overflow: hidden;
+  padding: 28px;
+  border: 1px solid rgba(30, 36, 48, 0.13);
+  border-radius: 18px;
+  text-decoration: none;
+  box-shadow: 0 24px 70px rgba(31, 39, 53, 0.12);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.game-card:hover,
+.game-card:focus-visible {
+  outline: none;
+  transform: translateY(-5px);
+  box-shadow: 0 30px 80px rgba(31, 39, 53, 0.18);
+}
+
+.queens-card {
+  background: linear-gradient(145deg, #fffaf0, #f1d86f);
+}
+
+.aikido-card {
+  color: #f7f4ed;
+  background:
+    radial-gradient(circle at 90% 12%, rgba(255, 70, 89, 0.26), transparent 13rem),
+    linear-gradient(145deg, #252936, #09090e 76%);
+}
+
+.card-icon {
+  display: grid;
+  width: 68px;
+  height: 68px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+.card-copy {
+  display: grid;
+  align-self: end;
+}
+
+.card-copy small {
+  margin-bottom: 7px;
+  opacity: 0.66;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.card-copy strong {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1;
+}
+
+.card-copy > span {
+  max-width: 330px;
+  margin-top: 12px;
+  opacity: 0.72;
+  line-height: 1.45;
+}
+
+.card-action {
+  display: inline-flex;
+  align-items: center;
+  align-self: end;
+  justify-self: end;
+  gap: 8px;
+  margin-top: 22px;
+  font-weight: 900;
+}
+
 @media (max-width: 840px) {
   .app-shell {
     padding: 16px;
@@ -295,5 +437,47 @@ h1 {
 
   .board {
     width: min(94vw, 620px);
+  }
+
+  .game-picker {
+    align-items: start;
+    padding: 28px 16px;
+  }
+
+  .game-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .game-card {
+    min-height: 245px;
+  }
+}
+
+@media (max-width: 520px) {
+  .topbar {
+    align-items: flex-start;
+  }
+
+  .userbar {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .userbar > span {
+    order: 3;
+  }
+
+  .picker-hero {
+    margin-bottom: 24px;
+  }
+
+  .game-card {
+    min-height: 225px;
+    padding: 22px;
+  }
+
+  .card-icon {
+    width: 56px;
+    height: 56px;
   }
 }

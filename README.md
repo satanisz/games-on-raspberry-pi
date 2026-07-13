@@ -1,10 +1,15 @@
-# Malinka Queens
+# Gry na Malince
 
-Gra logiczna Queens hostowana na Raspberry Pi.
+Dwie gry hostowane na Raspberry Pi i dostępne przez `satanisz.pl`:
+
+- `/` - ekran wyboru gry,
+- `/queens/` - gra logiczna Queens,
+- `/aikido/` - zręcznościowa gra Aikido (GRA_STASIA).
 
 ## Struktura
 
-- `frontend/` - React + Vite, interfejs gry.
+- `frontend/` - React + Vite, ekran wyboru i Queens.
+- `frontend/public/aikido/` - statyczna gra Aikido kopiowana przez Vite do buildu.
 - `backend/` - FastAPI + SQLite, logowanie PIN-em, plansze, wyniki i ranking.
 - `backend/data/queens.sqlite3` - lokalna baza tworzona automatycznie poza repozytorium.
 

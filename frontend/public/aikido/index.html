@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#08080d" />
+    <title>Aikido — Staś kontra zły Sensei</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">合</span>
+          <div>
+            <p class="eyebrow">MROCZNA BIJATYKA</p>
+            <h1>AIKIDO</h1>
+          </div>
+        </div>
+
+        <section class="treasury" aria-label="Zebrane nagrody">
+          <div class="treasure"><span>🪙</span><b id="gold-total">0</b><small>złoto</small></div>
+          <div class="treasure"><span>💎</span><b id="diamond-total">0</b><small>diamenty</small></div>
+          <div class="treasure"><span>💰</span><b id="coin-total">0</b><small>pieniądze</small></div>
+          <div class="treasure"><span>🏆</span><b id="trophy-total">0</b><small>puchary</small></div>
+          <div class="treasure"><span>🏅</span><b id="medal-total">0</b><small>medale</small></div>
+        </section>
+      </header>
+
+      <section class="arena-frame" aria-label="Arena walki">
+        <div class="hud" aria-live="polite">
+          <div class="fighter-hud player-hud">
+            <div class="hud-label"><strong>STAŚ</strong><span>BOHATER</span></div>
+            <div class="health-track"><div id="player-health" class="health-fill player-health"></div></div>
+            <span id="player-health-text" class="health-number">100</span>
+          </div>
+          <div class="round-badge"><span>WALKA</span><b id="fight-number">1</b></div>
+          <div class="fighter-hud enemy-hud">
+            <div class="hud-label"><strong id="enemy-name">ZŁY SENSEI</strong><span id="enemy-role">SZEF</span></div>
+            <div class="health-track"><div id="enemy-health" class="health-fill enemy-health"></div></div>
+            <span id="enemy-health-text" class="health-number">100</span>
+          </div>
+        </div>
+
+        <canvas id="game-canvas" width="1100" height="600" aria-label="Staś walczy ze złym Sensei"></canvas>
+
+        <div id="start-screen" class="overlay visible">
+          <div class="panel start-panel">
+            <p class="panel-kicker">STAŃ DO WALKI</p>
+            <h2 id="mission-title">Pokonaj złego Sensei</h2>
+            <p id="mission-description">Sensei opanował mroczne dojo. Tylko Staś może go zatrzymać i odzyskać skarby.</p>
+            <div class="keyboard-help" aria-label="Sterowanie">
+              <div><kbd>←</kbd><kbd>→</kbd><span>ruch</span></div>
+              <div><kbd>↑</kbd><span>skok</span></div>
+              <div><kbd class="wide-key">SPACJA</kbd><span>cios</span></div>
+              <div><kbd>X</kbd><span>kopnięcie</span></div>
+            </div>
+            <button id="start-button" class="primary-button">ROZPOCZNIJ WALKĘ</button>
+          </div>
+        </div>
+
+        <div id="result-screen" class="overlay" aria-live="assertive">
+          <div class="panel result-panel">
+            <p id="result-kicker" class="panel-kicker">ZWYCIĘSTWO</p>
+            <h2 id="result-title">Sensei pokonany!</h2>
+            <p id="result-description">Staś uratował dojo i zdobył nagrody.</p>
+            <div id="earned-rewards" class="earned-rewards"></div>
+            <button id="again-button" class="primary-button">WALCZ PONOWNIE</button>
+          </div>
+        </div>
+
+        <div id="message" class="fight-message" aria-live="assertive"></div>
+      </section>
+
+      <section class="touch-controls" aria-label="Przyciski sterowania">
+        <div class="move-controls">
+          <button class="control-button" data-key="ArrowLeft" aria-label="Idź w lewo">←</button>
+          <button class="control-button" data-key="ArrowRight" aria-label="Idź w prawo">→</button>
+        </div>
+        <div class="attack-controls">
+          <button class="control-button attack-button jump-button" data-key="ArrowUp" aria-label="Skok"><span>↑</span><small>SKOK</small></button>
+          <button class="control-button attack-button" data-key="Space" aria-label="Cios ręką"><span>●</span><small>CIOS</small></button>
+          <button class="control-button attack-button kick-button" data-key="KeyX" aria-label="Kopnięcie"><span>✦</span><small>KOP</small></button>
+        </div>
+      </section>
+
+      <footer>
+        <a class="home-link" href="/">← Wszystkie gry</a>
+        <span>Nagrody zapisują się automatycznie w tej przeglądarce.</span>
+        <button id="reset-button" class="text-button">Wyzeruj nagrody</button>
+      </footer>
+    </main>
+
+    <script src="game.js" defer></script>
+  </body>
+</html>
