@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#092f35" />
+    <meta name="description" content="Kurka Wodna — mobilna strzelnica zręcznościowa nad stawem." />
+    <title>Kurka Wodna — strzelnica nad stawem</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">◉</span>
+          <div>
+            <p class="eyebrow">STRZELNICA NAD STAWEM</p>
+            <h1>KURKA WODNA</h1>
+          </div>
+        </div>
+        <div class="record-box">
+          <span>REKORD</span>
+          <strong id="best-score">0</strong>
+        </div>
+      </header>
+
+      <section class="arena" aria-label="Strzelnica Kurka Wodna">
+        <div class="hud" aria-live="polite">
+          <div><span>PUNKTY</span><strong id="score">0</strong></div>
+          <div><span>CZAS</span><strong id="time">45</strong></div>
+          <div><span>COMBO</span><strong id="combo">×1</strong></div>
+          <div><span>CELNOŚĆ</span><strong id="accuracy">—</strong></div>
+        </div>
+
+        <canvas id="game-canvas" width="960" height="600" aria-label="Dotknij kolorowej kurki, aby zdobyć punkty"></canvas>
+
+        <div id="start-screen" class="overlay visible">
+          <section class="panel">
+            <p class="panel-kicker">45 SEKUND</p>
+            <h2>Masz celne oko?</h2>
+            <p>Trafiaj kolorowe kurki, poluj na złote bonusy i omijaj białe łabędzie.</p>
+            <div class="legend" aria-label="Punktacja">
+              <span><b class="dot regular"></b> Kurka +100</span>
+              <span><b class="dot golden"></b> Złota +350</span>
+              <span><b class="dot swan"></b> Łabędź −200</span>
+            </div>
+            <button id="start-button" class="primary-button">ZACZNIJ STRZELAĆ</button>
+          </section>
+        </div>
+
+        <div id="result-screen" class="overlay">
+          <section class="panel result-panel">
+            <p class="panel-kicker">KONIEC RUNDY</p>
+            <h2 id="result-title">Dobry wynik!</h2>
+            <div class="result-grid">
+              <div><span>Punkty</span><strong id="result-score">0</strong></div>
+              <div><span>Celność</span><strong id="result-accuracy">0%</strong></div>
+              <div><span>Najlepsze combo</span><strong id="result-combo">0</strong></div>
+            </div>
+            <p id="result-note">Spróbuj jeszcze raz i pobij rekord.</p>
+            <button id="again-button" class="primary-button">JESZCZE RAZ</button>
+          </section>
+        </div>
+
+        <div id="shot-message" class="shot-message" aria-live="assertive"></div>
+      </section>
+
+      <section class="instructions">
+        <div><span class="tap-icon">◎</span><p><strong>Dotknij lub kliknij</strong><br />bezpośrednio w kurkę</p></div>
+        <div><span class="combo-icon">×5</span><p><strong>Buduj combo</strong><br />za serię trafień</p></div>
+        <div><span class="swan-icon">◇</span><p><strong>Omijaj łabędzie</strong><br />zabierają punkty</p></div>
+      </section>
+
+      <footer>
+        <a href="/">← Wszystkie gry</a>
+        <span>Rekord zapisuje się automatycznie w tej przeglądarce.</span>
+      </footer>
+    </main>
+
+    <script src="game.js" defer></script>
+  </body>
+</html>

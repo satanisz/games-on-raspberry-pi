@@ -318,7 +318,7 @@ h1 {
 }
 
 .game-picker-inner {
-  width: min(980px, 100%);
+  width: min(1120px, 100%);
 }
 
 .picker-hero {
@@ -341,7 +341,7 @@ h1 {
 
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -374,6 +374,13 @@ h1 {
   background:
     radial-gradient(circle at 90% 12%, rgba(255, 70, 89, 0.26), transparent 13rem),
     linear-gradient(145deg, #252936, #09090e 76%);
+}
+
+.water-card {
+  color: #f8fff7;
+  background:
+    radial-gradient(circle at 84% 14%, rgba(255, 203, 83, 0.42), transparent 12rem),
+    linear-gradient(145deg, #237f75, #092f35 75%);
 }
 
 .card-icon {
@@ -420,6 +427,12 @@ h1 {
   gap: 8px;
   margin-top: 22px;
   font-weight: 900;
+}
+
+@media (max-width: 1050px) {
+  .game-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 840px) {

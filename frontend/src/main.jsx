@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowRight, Crown, Home, LogOut, Plus, RotateCcw, Swords, Trophy, UserRound, X } from 'lucide-react';
+import { ArrowRight, Crosshair, Crown, Home, LogOut, Plus, RotateCcw, Swords, Trophy, UserRound, X } from 'lucide-react';
 import './styles.css';
 
 const API = import.meta.env.VITE_API_URL || '/api';
@@ -311,7 +311,7 @@ function GamePicker() {
         <header className="picker-hero">
           <p className="kicker">Satanisz.pl</p>
           <h1>Wybierz grę</h1>
-          <p>Trochę główkowania albo szybka walka — wybór należy do Ciebie.</p>
+          <p>Trochę główkowania, szybka walka albo celne oko — wybór należy do Ciebie.</p>
         </header>
 
         <section className="game-grid" aria-label="Dostępne gry">
@@ -334,6 +334,16 @@ function GamePicker() {
             </span>
             <span className="card-action">Graj <ArrowRight size={20} /></span>
           </a>
+
+          <a className="game-card water-card" href="/kurka-wodna/">
+            <span className="card-icon"><Crosshair size={40} strokeWidth={1.8} /></span>
+            <span className="card-copy">
+              <small>Strzelnica zręcznościowa</small>
+              <strong>Kurka Wodna</strong>
+              <span>Trafiaj kurki nad stawem, buduj combo i omijaj łabędzie.</span>
+            </span>
+            <span className="card-action">Graj <ArrowRight size={20} /></span>
+          </a>
         </section>
       </div>
     </main>
@@ -350,8 +360,8 @@ function Metric({ label, value }) {
 }
 
 const path = window.location.pathname.replace(/\/+$/, '') || '/';
-if (path === '/aikido') {
-  window.location.replace('/aikido/index.html');
+if (path === '/aikido' || path === '/kurka-wodna') {
+  window.location.replace(`${path}/index.html`);
 } else {
   createRoot(document.getElementById('root')).render(path === '/queens' ? <QueensGame /> : <GamePicker />);
 }
