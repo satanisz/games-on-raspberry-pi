@@ -130,7 +130,7 @@ function startLevel(isFirstLevel = false) {
   clearTimers();
   window.scrollTo(0, 0);
   const level = levels[currentLevelIndex];
-  hearts = 3;
+  if (currentLevelIndex % 3 === 0) hearts = 3;
   gameState = "memory";
 
   ui.levelLabel.textContent = `Poziom ${currentLevelIndex + 1}`;
