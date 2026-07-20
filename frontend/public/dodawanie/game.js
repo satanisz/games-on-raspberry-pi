@@ -2,7 +2,8 @@
 
 const TOTAL_LEVELS = 30;
 const MAX_RESULT = 20;
-const ANIMALS = ["cat", "bird", "panda", "onigiri", "bats"];
+const ANIMALS = ["cat", "bird", "panda", "onigiri", "blue-bat", "gray-bat"];
+const ENTRANCE_MS = 1050;
 const ANSWER_COLORS = [
   ["#ffe38d", "#d3a833"],
   ["#aee7cf", "#67b892"],
@@ -43,8 +44,10 @@ let currentLevelIndex = 0;
 let hearts = 3;
 let gameState = "intro";
 let soundEnabled = true;
+let entranceTimeout = null;
 let memoryTimeout = null;
 let transitionTimeout = null;
+let talkTimeout = null;
 
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -131,7 +134,7 @@ function startLevel(isFirstLevel = false) {
   window.scrollTo(0, 0);
   const level = levels[currentLevelIndex];
   if (currentLevelIndex % 3 === 0) hearts = 3;
-  gameState = "memory";
+  gameState = "entrance";
 
   ui.levelLabel.textContent = `Poziom ${currentLevelIndex + 1}`;
   ui.levelCount.textContent = `${currentLevelIndex + 1} / ${TOTAL_LEVELS}`;
@@ -148,16 +151,21 @@ function startLevel(isFirstLevel = false) {
   ui.answers.replaceChildren();
   ui.challenge.classList.add("memory-state");
   ui.challenge.classList.remove("answer-state");
-  setSpeechBubble("Zapamiętaj działanie");
+  ui.speechBubble.classList.add("awaiting");
 
   ui.timerBar.classList.remove("running");
   ui.timerBar.style.setProperty("--memory-time", `${level.memoryMs}ms`);
-  void ui.timerBar.offsetWidth;
-  ui.timerBar.classList.add("running");
 
   const welcome = isFirstLevel ? "Witaj w świecie dodawania. " : "";
-  speak(`${welcome}Zapamiętaj działanie. ${level.left} plus ${level.right} równa się ${level.result}.`);
-  memoryTimeout = window.setTimeout(showAnswers, level.memoryMs);
+  entranceTimeout = window.setTimeout(() => {
+    gameState = "memory";
+    ui.animal.classList.remove("entering");
+    setSpeechBubble(isFirstLevel ? "Witaj w świecie dodawania! Zapamiętaj działanie" : "Zapamiętaj działanie");
+    void ui.timerBar.offsetWidth;
+    ui.timerBar.classList.add("running");
+    speak(`${welcome}Zapamiętaj działanie. ${level.left} plus ${level.right} równa się ${level.result}.`);
+    memoryTimeout = window.setTimeout(showAnswers, level.memoryMs);
+  }, ENTRANCE_MS);
 }
 
 function showAnswers() {
@@ -251,6 +259,8 @@ function showEndScreen(won) {
 
 function setAnimal(name) {
   ui.animal.className = `animal-figure animal-${name}`;
+  void ui.animal.offsetWidth;
+  ui.animal.classList.add("entering");
 }
 
 function animateAnimal(className) {
@@ -262,6 +272,7 @@ function animateAnimal(className) {
 
 function setSpeechBubble(message) {
   ui.speechBubble.textContent = message;
+  ui.speechBubble.classList.remove("awaiting");
   ui.speechBubble.classList.remove("pop");
   void ui.speechBubble.offsetWidth;
   ui.speechBubble.classList.add("pop");
@@ -292,7 +303,14 @@ function findPolishVoice() {
 }
 
 function speak(message) {
-  if (!soundEnabled || !("speechSynthesis" in window)) return;
+  if (!soundEnabled) return;
+  window.clearTimeout(talkTimeout);
+  ui.animal.classList.remove("talking");
+  void ui.animal.offsetWidth;
+  ui.animal.classList.add("talking");
+  const talkingMs = Math.min(5000, Math.max(850, message.split(/\s+/).length * 270));
+  talkTimeout = window.setTimeout(() => ui.animal.classList.remove("talking"), talkingMs);
+  if (!("speechSynthesis" in window)) return;
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(message);
   utterance.lang = "pl-PL";
@@ -306,6 +324,8 @@ function speak(message) {
 
 function cancelSpeech() {
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  window.clearTimeout(talkTimeout);
+  ui.animal.classList.remove("talking");
 }
 
 function toggleSound() {
@@ -317,10 +337,14 @@ function toggleSound() {
 }
 
 function clearTimers() {
+  window.clearTimeout(entranceTimeout);
   window.clearTimeout(memoryTimeout);
   window.clearTimeout(transitionTimeout);
+  window.clearTimeout(talkTimeout);
+  entranceTimeout = null;
   memoryTimeout = null;
   transitionTimeout = null;
+  talkTimeout = null;
 }
 
 ui.startButton.addEventListener("click", startGame);
