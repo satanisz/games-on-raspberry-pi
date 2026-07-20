@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowRight, Crosshair, Crown, Home, LogOut, Plus, RotateCcw, Swords, Trophy, UserRound, X } from 'lucide-react';
+import { ArrowRight, Calculator, Crosshair, Crown, Home, LogOut, Plus, RotateCcw, Swords, Trophy, UserRound, X } from 'lucide-react';
 import './styles.css';
 
 const API = import.meta.env.VITE_API_URL || '/api';
@@ -344,6 +344,16 @@ function GamePicker() {
             </span>
             <span className="card-action">Graj <ArrowRight size={20} /></span>
           </a>
+
+          <a className="game-card adding-card" href="/dodawanie/">
+            <span className="card-icon"><Calculator size={40} strokeWidth={1.8} /></span>
+            <span className="card-copy">
+              <small>Gra edukacyjna</small>
+              <strong>Dodawanie</strong>
+              <span>Zapamiętuj działania, wybieraj wyniki i poznaj wesołe zwierzątka.</span>
+            </span>
+            <span className="card-action">Graj <ArrowRight size={20} /></span>
+          </a>
         </section>
       </div>
     </main>
@@ -360,7 +370,7 @@ function Metric({ label, value }) {
 }
 
 const path = window.location.pathname.replace(/\/+$/, '') || '/';
-if (path === '/aikido' || path === '/kurka-wodna') {
+if (path === '/aikido' || path === '/kurka-wodna' || path === '/dodawanie') {
   window.location.replace(`${path}/index.html`);
 } else {
   createRoot(document.getElementById('root')).render(path === '/queens' ? <QueensGame /> : <GamePicker />);

@@ -383,6 +383,13 @@ h1 {
     linear-gradient(145deg, #237f75, #092f35 75%);
 }
 
+.adding-card {
+  color: #49395d;
+  background:
+    radial-gradient(circle at 85% 13%, rgba(255, 255, 255, 0.72), transparent 12rem),
+    linear-gradient(145deg, #fff3bd, #bde8d5 76%);
+}
+
 .card-icon {
   display: grid;
   width: 68px;

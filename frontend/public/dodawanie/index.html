@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#fff4cf" />
+    <meta name="description" content="Dodawanie — mówiąca gra edukacyjna z 30 poziomami." />
+    <title>Dodawanie — Malinka</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="topbar">
+        <a class="home-link" href="/" aria-label="Wróć do wszystkich gier">← Gry</a>
+        <div class="progress-wrap" aria-label="Postęp gry">
+          <div class="level-line">
+            <strong id="level-label">Poziom 1</strong>
+            <span id="level-count">1 / 30</span>
+          </div>
+          <div class="progress-track"><span id="progress-bar"></span></div>
+        </div>
+        <div id="hearts" class="hearts" aria-label="Trzy serduszka">
+          <span>♥</span><span>♥</span><span>♥</span>
+        </div>
+      </header>
+
+      <section class="round-layout" aria-live="polite">
+        <div class="animal-stage">
+          <div id="speech-bubble" class="speech-bubble">Witaj w świecie dodawania!</div>
+          <div id="animal" class="animal-figure animal-cat" role="img" aria-label="Zwierzątko prowadzące rundę"></div>
+          <div class="stage-shadow" aria-hidden="true"></div>
+        </div>
+
+        <section id="challenge" class="challenge memory-state">
+          <div class="challenge-heading">
+            <p id="mode-kicker">ZAPAMIĘTAJ</p>
+            <h1 id="instruction">Zapamiętaj działanie</h1>
+          </div>
+
+          <div id="equation-card" class="equation-card">
+            <span id="left-number">1</span>
+            <span class="operator">+</span>
+            <span id="right-number">1</span>
+            <span class="operator">=</span>
+            <span id="result-number">2</span>
+          </div>
+
+          <div id="memory-timer" class="memory-timer" aria-label="Czas na zapamiętanie">
+            <span id="timer-bar"></span>
+          </div>
+
+          <div id="answers" class="answers" aria-label="Wybierz odpowiedź"></div>
+          <p id="feedback" class="feedback" aria-live="assertive"></p>
+        </section>
+      </section>
+
+      <footer class="game-footer">
+        <span>Dodawanie do 20</span>
+        <button id="sound-button" class="sound-button" type="button" aria-pressed="false">🔊 Głos włączony</button>
+      </footer>
+    </main>
+
+    <div id="start-screen" class="overlay visible">
+      <section class="start-card">
+        <div class="start-animal animal-figure animal-cat" role="img" aria-label="Wesoły kot"></div>
+        <div>
+          <p class="panel-kicker">MALINKA PRZEDSTAWIA</p>
+          <h2>Świat dodawania</h2>
+          <p>Zapamiętaj działanie, a potem wybierz jego prawidłowy wynik. Masz trzy serduszka na każdy poziom.</p>
+          <button id="start-button" class="primary-button" type="button">Zaczynamy!</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="end-screen" class="overlay">
+      <section class="end-card">
+        <div id="animal-parade" class="animal-parade" aria-hidden="true"></div>
+        <p id="end-kicker" class="panel-kicker">KONIEC GRY</p>
+        <h2 id="end-title">Przegrałeś</h2>
+        <p id="end-message">Nie masz już serduszek.</p>
+        <button id="again-button" class="primary-button" type="button">Zagraj od początku</button>
+      </section>
+    </div>
+
+    <div class="rotate-notice" role="dialog" aria-label="Obróć urządzenie">
+      <span aria-hidden="true">↻</span>
+      <strong>Obróć telefon</strong>
+      <p>Ta gra działa najlepiej poziomo.</p>
+    </div>
+
+    <script src="game.js" defer></script>
+  </body>
+</html>

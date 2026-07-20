@@ -6,12 +6,14 @@ Trzy gry hostowane na Raspberry Pi i dostępne przez `satanisz.pl`:
 - `/queens/` - gra logiczna Queens,
 - `/aikido/` - zręcznościowa gra Aikido (GRA_STASIA).
 - `/kurka-wodna/` - mobilna strzelnica zręcznościowa Kurka Wodna.
+- `/dodawanie/` - mówiąca gra edukacyjna z dodawaniem do 20.
 
 ## Struktura
 
 - `frontend/` - React + Vite, ekran wyboru i Queens.
 - `frontend/public/aikido/` - statyczna gra Aikido kopiowana przez Vite do buildu.
 - `frontend/public/kurka-wodna/` - statyczna gra canvas Kurka Wodna.
+- `frontend/public/dodawanie/` - statyczna gra edukacyjna Dodawanie.
 - `backend/` - FastAPI + SQLite, logowanie PIN-em, plansze, wyniki i ranking.
 - `backend/data/queens.sqlite3` - lokalna baza tworzona automatycznie poza repozytorium.
 
