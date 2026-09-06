@@ -7,6 +7,9 @@ Trzy gry hostowane na Raspberry Pi i dostępne przez `satanisz.pl`:
 - `/aikido/` - zręcznościowa gra Aikido (GRA_STASIA).
 - `/kurka-wodna/` - mobilna strzelnica zręcznościowa Kurka Wodna.
 - `/dodawanie/` - mówiąca gra edukacyjna z dodawaniem do 20.
+- `/feed/` - prywatny panel RSS i bot Telegram „Poza bańką”, codziennie o 08:05.
+
+Dokumentacja bota i zasad doboru: [docs/feed.md](docs/feed.md).
 
 ## Struktura
 

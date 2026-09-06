@@ -10,9 +10,20 @@ from pydantic import BaseModel, Field
 
 from .db import get_connection, init_db
 from .game import generate_puzzle, public_puzzle, puzzle_to_json, validate_solution
+from . import feed
 
 
 app = FastAPI(title="Malinka Queens")
+app.include_router(feed.router)
+
+
+@app.middleware("http")
+async def private_feed_responses(request, call_next):
+    response = await call_next(request)
+    if request.url.path.startswith("/api/feed"):
+        response.headers["Cache-Control"] = "no-store"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+    return response
 
 app.add_middleware(
     CORSMiddleware,
@@ -62,6 +73,12 @@ def current_user(authorization: Annotated[str | None, Header()] = None) -> dict:
 def startup() -> None:
     init_db()
     ensure_seed_puzzles()
+    feed.start()
+
+
+@app.on_event("shutdown")
+def shutdown() -> None:
+    feed.STOP.set()
 
 
 @app.get("/api/health")
